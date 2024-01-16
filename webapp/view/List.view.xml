@@ -1,0 +1,90 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" 
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:table="sap.ui.table" controllerName="zpccompartimento.controller.List" displayBlock="true">
+    <Page id="idListPage" title="{i18n>title}">
+        <content>
+            <smartFilterBar:SmartFilterBar
+                id="idSmartFilterBar"
+                entitySet="CompartimentoSet"
+                showClearOnFB="true"
+                showFilterConfiguration="false"
+            >
+                <smartFilterBar:controlConfiguration>
+                    <smartFilterBar:ControlConfiguration
+                        id="idTuCarrierControlConfiguration"
+                        index="1"
+                        key="TuCarrier"
+                        visibleInAdvancedArea="true"
+                    />
+                    <smartFilterBar:ControlConfiguration
+                        id="idTuTypeControlConfiguration"
+                        index="2"
+                        key="TuType"
+                        visibleInAdvancedArea="true"
+                    />
+                    <smartFilterBar:ControlConfiguration
+                        id="idTuNumberControlConfiguration"
+                        index="3"
+                        key="TuNumber"
+                        visibleInAdvancedArea="true"
+                    />
+                </smartFilterBar:controlConfiguration>
+            </smartFilterBar:SmartFilterBar>
+            <smartTable:SmartTable id="idSmartTable" width="100%" tableType="ResponsiveTable" enableAutoBinding="true" fitContainer="true" header="{i18n>title}" entitySet="CompartimentoSet" smartFilterId="idSmartFilterBar" 
+                requestAtLeastFields="TuNumber,TuType,TuCarrier" 
+                initiallyVisibleFields="TuNumber,TuType,TuCarrier"
+                ignoredFields=""
+                persistencyKey="TablePersistencyKey"
+                showFullScreenButton="true" 
+                >
+                <table:Table id="idTable" rowActionCount="1" selectionMode="Single">
+                    <table:rowActionTemplate>
+                        <table:RowAction id="idRowAction">
+                            <table:items>
+                                <table:RowActionItem id="idRowActionItem" type="Navigation" press="onRowActionItemPress" icon="sap-icon://feeder-arrow"/>
+                            </table:items>
+                        </table:RowAction>
+                    </table:rowActionTemplate>
+                </table:Table>
+                <smartTable:customToolbar>
+                    <OverflowToolbar id="idOverflowToolbar" design="Transparent">
+                        <ToolbarSpacer id="id1ToolbarSpacer"/>
+                        <!-- <Button ="Criar Registro" type="Transparent" press="onNewRegister" icon="sap-icon://document"/> -->
+                        <Button
+                            id="idCriarCompartimentoButton"
+                            text="{i18n>txtCreateComp}"
+                            tooltip="{i18n>txtCreateComp}"
+                            press="onCriarCompartimentoButtonPress"
+                            icon="sap-icon://document"
+                        />
+                        <!-- <Button
+                            id="idEliminarCompartimentoButton"
+                            text="{i18n>txtDeleteComp}"
+                            tooltip="{i18n>txtDeleteComp}"
+                            icon="sap-icon://delete"
+                            press="onEliminarCompartimentoButtonPress"
+                            enabled="false"
+                        /> -->
+                    </OverflowToolbar>
+                </smartTable:customToolbar>
+                <!--  layout data used to make the table growing but the filter bar fixed  -->
+                <smartTable:layoutData>
+                    <FlexItemData
+                        id="id1FlexItemData"
+                        growFactor="1"
+                    />
+                </smartTable:layoutData>
+                
+                <!-- <table:AnalyticalTable id="teste" editable="false" rowActionCount="1" selectionMode="Single" 
+                visibleRowCount="16">
+                    <table:rowActionTemplate>
+                        <table:RowAction id="aaaaa">
+                            <table:items>
+                                <table:RowActionItem id="bbb" type="Navigation" press="onRowActionItemPress" icon="sap-icon://feeder-arrow"/>
+                            </table:items>
+                        </table:RowAction>
+                    </table:rowActionTemplate>
+                </table:AnalyticalTable> -->
+            </smartTable:SmartTable>
+        </content>
+    </Page>
+</mvc:View>

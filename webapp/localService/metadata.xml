@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZPC_COMPARTIMENTO_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="Compartimento" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TuNumber"/>
+                </Key>
+                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:updatable="false"/>
+                <Property Name="TuType" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="TU type" sap:updatable="false"/>
+                <Property Name="WgtUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Weight UoM" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="TuId" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="TU identifier" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuNrcomps" Type="Edm.Byte" sap:unicode="false" sap:label="Nr.compartments" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuNrmets" Type="Edm.Byte" sap:unicode="false" sap:label="Nr.of meters" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuUnlwgt" Type="Edm.Double" sap:unicode="false" sap:unit="WgtUom" sap:label="Unladen weight" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuMaxwgt" Type="Edm.Double" sap:unicode="false" sap:unit="WgtUom" sap:label="Maximum weight" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuHeight" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:unit="DimUom" sap:label="TU height" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuWidth" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:unit="DimUom" sap:label="TU width" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuLength" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:unit="DimUom" sap:label="TU length" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuAxles" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="No.of axles" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuMaxvol" Type="Edm.Double" sap:unicode="false" sap:label="Maximum volume" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="VolUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Vol.UoM" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="DimUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Dim.UoM" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="EquipNr" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Equipment" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuStatus" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="TU status" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Tppoint" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="TransportPlanPt" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuCarrier" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Carrier"/>
+                <Property Name="CreName" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Created By" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created On" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChaName" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Changed By" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChaDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Last Change" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="VtuXblck" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="PurposeComplete Flag" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RailcarType" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Own Vehicle" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="CompartimentoText" Relationship="ZPC_COMPARTIMENTO_SRV.CompartimentoToCompartimentoText" FromRole="FromRole_CompartimentoToCompartimentoText" ToRole="ToRole_CompartimentoToCompartimentoText"/>
+            </EntityType>
+            <EntityType Name="CompartimentoText" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TuNumber"/>
+                </Key>
+                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:filterable="false"/>
+                <Property Name="TuText" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Tr. unit text" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="CompartimentoToCompartimentoText" sap:content-version="1">
+                <End Type="ZPC_COMPARTIMENTO_SRV.Compartimento" Multiplicity="*" Role="FromRole_CompartimentoToCompartimentoText"/>
+                <End Type="ZPC_COMPARTIMENTO_SRV.CompartimentoText" Multiplicity="0..1" Role="ToRole_CompartimentoToCompartimentoText"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CompartimentoToCompartimentoText">
+                        <PropertyRef Name="TuNumber"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CompartimentoToCompartimentoText">
+                        <PropertyRef Name="TuNumber"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZPC_COMPARTIMENTO_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="CompartimentoSet" EntityType="ZPC_COMPARTIMENTO_SRV.Compartimento" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CompartimentoTextSet" EntityType="ZPC_COMPARTIMENTO_SRV.CompartimentoText" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="CompartimentoToCompartimentoTextSet" Association="ZPC_COMPARTIMENTO_SRV.CompartimentoToCompartimentoText" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CompartimentoSet" Role="FromRole_CompartimentoToCompartimentoText"/>
+                    <End EntitySet="CompartimentoTextSet" Role="ToRole_CompartimentoToCompartimentoText"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://virtual.ds4.sap.paranaxisto.com.br:50000/sap/opu/odata/sap/ZPC_COMPARTIMENTO_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://virtual.ds4.sap.paranaxisto.com.br:50000/sap/opu/odata/sap/ZPC_COMPARTIMENTO_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
