@@ -11,11 +11,11 @@
                 <smartForm:groups>
                     <smartForm:Group title="{i18n>titleGeneralDataGroup}" id="idGenDataGroup">
                         <smartForm:groupElements>
-                            <!-- <smartForm:GroupElement id="idTuNumberGroupElement">
+                            <smartForm:GroupElement id="idTuNumberGroupElement" visible="false">
                                 <smartForm:elements>
                                     <smartField:SmartField id="idTuNumberSmartField" value="{TuNumber}" entitySet="CompartimentoSet"/>
                                 </smartForm:elements>
-                            </smartForm:GroupElement> -->
+                            </smartForm:GroupElement>
                             <smartForm:GroupElement id="idTuTypeGroupElement">
                                 <smartForm:elements>
                                     <smartField:SmartField id="idTuTypeSmartField" value="{TuType}" entitySet="CompartimentoSet"/>
