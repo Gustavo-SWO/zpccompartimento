@@ -9,7 +9,7 @@
                 </Key>
                 <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:updatable="false"/>
                 <Property Name="TuType" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="TU type" sap:updatable="false" sap:value-list="standard"/>
-                <Property Name="WgtUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Weight UoM" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="WgtUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Weight UoM" sap:sortable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="unit-of-measure"/>
                 <Property Name="TuId" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="TU identifier" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuNrcomps" Type="Edm.Byte" sap:unicode="false" sap:label="Nr.compartments" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuNrmets" Type="Edm.Byte" sap:unicode="false" sap:label="Nr.of meters" sap:sortable="false" sap:filterable="false"/>
@@ -21,7 +21,7 @@
                 <Property Name="TuAxles" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="No.of axles" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuMaxvol" Type="Edm.Double" sap:unicode="false" sap:label="Maximum volume" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="VolUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Vol.UoM" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
-                <Property Name="DimUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Dim.UoM" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="DimUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Dim.UoM" sap:sortable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="unit-of-measure"/>
                 <Property Name="EquipNr" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Equipment" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuStatus" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="TU status" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Tppoint" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="TransportPlanPt" sap:sortable="false" sap:filterable="false"/>
@@ -61,6 +61,15 @@
                 <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:filterable="false"/>
                 <Property Name="TuText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Tr. unit text" sap:filterable="false"/>
             </EntityType>
+            <EntityType Name="HT006" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Msehi"/>
+                </Key>
+                <Property Name="Msehi" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Internal UoM" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="Mseh3" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Commercial" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Msehl" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="UoM Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Txdim" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Dimension text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
             <Association Name="CompartimentoToCompartimentoText" sap:content-version="1">
                 <End Type="ZPC_COMPARTIMENTO_SRV.Compartimento" Multiplicity="*" Role="FromRole_CompartimentoToCompartimentoText"/>
                 <End Type="ZPC_COMPARTIMENTO_SRV.CompartimentoText" Multiplicity="0..1" Role="ToRole_CompartimentoToCompartimentoText"/>
@@ -78,6 +87,7 @@
                 <EntitySet Name="HLfa1VendorSet" EntityType="ZPC_COMPARTIMENTO_SRV.HLfa1Vendor" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="ZshTuTypeSet" EntityType="ZPC_COMPARTIMENTO_SRV.ZshTuType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="CompartimentoTextSet" EntityType="ZPC_COMPARTIMENTO_SRV.CompartimentoText" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="HT006Set" EntityType="ZPC_COMPARTIMENTO_SRV.HT006" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <AssociationSet Name="CompartimentoToCompartimentoTextSet" Association="ZPC_COMPARTIMENTO_SRV.CompartimentoToCompartimentoText" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="CompartimentoSet" Role="FromRole_CompartimentoToCompartimentoText"/>
                     <End EntitySet="CompartimentoTextSet" Role="ToRole_CompartimentoToCompartimentoText"/>
@@ -109,6 +119,38 @@
                                 <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="TuType"/>
                                     <PropertyValue Property="ValueListProperty" String="TuType"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZPC_COMPARTIMENTO_SRV.Compartimento/DimUom" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="HT006Set"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="DimUom"/>
+                                    <PropertyValue Property="ValueListProperty" String="Msehi"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZPC_COMPARTIMENTO_SRV.Compartimento/WgtUom" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="HT006Set"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="WgtUom"/>
+                                    <PropertyValue Property="ValueListProperty" String="Msehi"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
