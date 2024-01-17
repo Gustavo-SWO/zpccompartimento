@@ -8,7 +8,7 @@
                     <PropertyRef Name="TuNumber"/>
                 </Key>
                 <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:updatable="false"/>
-                <Property Name="TuType" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="TU type" sap:updatable="false"/>
+                <Property Name="TuType" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="TU type" sap:updatable="false" sap:value-list="standard"/>
                 <Property Name="WgtUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Weight UoM" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
                 <Property Name="TuId" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="TU identifier" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuNrcomps" Type="Edm.Byte" sap:unicode="false" sap:label="Nr.compartments" sap:sortable="false" sap:filterable="false"/>
@@ -25,7 +25,7 @@
                 <Property Name="EquipNr" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Equipment" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuStatus" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="TU status" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Tppoint" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="TransportPlanPt" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TuCarrier" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Carrier"/>
+                <Property Name="TuCarrier" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Carrier" sap:value-list="standard"/>
                 <Property Name="CreName" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Created By" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="CreDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created On" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="ChaName" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Changed By" sap:sortable="false" sap:filterable="false"/>
@@ -34,14 +34,7 @@
                 <Property Name="RailcarType" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Own Vehicle" sap:sortable="false" sap:filterable="false"/>
                 <NavigationProperty Name="CompartimentoText" Relationship="ZPC_COMPARTIMENTO_SRV.CompartimentoToCompartimentoText" FromRole="FromRole_CompartimentoToCompartimentoText" ToRole="ToRole_CompartimentoToCompartimentoText"/>
             </EntityType>
-            <EntityType Name="CompartimentoText" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="TuNumber"/>
-                </Key>
-                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:filterable="false"/>
-                <Property Name="TuText" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Tr. unit text" sap:filterable="false"/>
-            </EntityType>
-            <EntityType Name="HLfa1Vendor" sap:content-version="1">
+            <EntityType Name="HLfa1Vendor" sap:value-list="true" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="Lifnr"/>
                 </Key>
@@ -53,6 +46,20 @@
                 <Property Name="Mcod3" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Name1" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Mcod1" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="CompartimentoText" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TuNumber"/>
+                </Key>
+                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:filterable="false"/>
+                <Property Name="TuText" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Tr. unit text" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ZshTuType" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TuType"/>
+                </Key>
+                <Property Name="TuType" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="TU type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuTyptext" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="TU type text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
             <Association Name="CompartimentoToCompartimentoText" sap:content-version="1">
                 <End Type="ZPC_COMPARTIMENTO_SRV.Compartimento" Multiplicity="*" Role="FromRole_CompartimentoToCompartimentoText"/>
@@ -68,13 +75,46 @@
             </Association>
             <EntityContainer Name="ZPC_COMPARTIMENTO_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="CompartimentoSet" EntityType="ZPC_COMPARTIMENTO_SRV.Compartimento" sap:pageable="false" sap:content-version="1"/>
-                <EntitySet Name="CompartimentoTextSet" EntityType="ZPC_COMPARTIMENTO_SRV.CompartimentoText" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="HLfa1VendorSet" EntityType="ZPC_COMPARTIMENTO_SRV.HLfa1Vendor" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CompartimentoTextSet" EntityType="ZPC_COMPARTIMENTO_SRV.CompartimentoText" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ZshTuTypeSet" EntityType="ZPC_COMPARTIMENTO_SRV.ZshTuType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <AssociationSet Name="CompartimentoToCompartimentoTextSet" Association="ZPC_COMPARTIMENTO_SRV.CompartimentoToCompartimentoText" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="CompartimentoSet" Role="FromRole_CompartimentoToCompartimentoText"/>
                     <End EntitySet="CompartimentoTextSet" Role="ToRole_CompartimentoToCompartimentoText"/>
                 </AssociationSet>
             </EntityContainer>
+            <Annotations Target="ZPC_COMPARTIMENTO_SRV.Compartimento/TuCarrier" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="HLfa1VendorSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="TuCarrier"/>
+                                    <PropertyValue Property="ValueListProperty" String="Lifnr"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZPC_COMPARTIMENTO_SRV.Compartimento/TuType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="ZshTuTypeSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="TuType"/>
+                                    <PropertyValue Property="ValueListProperty" String="TuType"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
             <atom:link rel="self" href="http://virtual.ds4.sap.paranaxisto.com.br:50000/sap/opu/odata/sap/ZPC_COMPARTIMENTO_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
             <atom:link rel="latest-version" href="http://virtual.ds4.sap.paranaxisto.com.br:50000/sap/opu/odata/sap/ZPC_COMPARTIMENTO_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
         </Schema>
