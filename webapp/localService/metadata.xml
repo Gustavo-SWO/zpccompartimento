@@ -41,6 +41,19 @@
                 <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:filterable="false"/>
                 <Property Name="TuText" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Tr. unit text" sap:filterable="false"/>
             </EntityType>
+            <EntityType Name="HLfa1Vendor" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Lifnr"/>
+                </Key>
+                <Property Name="Lifnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Supplier" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sortl" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Search term" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Land1" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Ctry/Reg." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Pstlz" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Postal Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ort01" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mcod3" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name1" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mcod1" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
             <Association Name="CompartimentoToCompartimentoText" sap:content-version="1">
                 <End Type="ZPC_COMPARTIMENTO_SRV.Compartimento" Multiplicity="*" Role="FromRole_CompartimentoToCompartimentoText"/>
                 <End Type="ZPC_COMPARTIMENTO_SRV.CompartimentoText" Multiplicity="0..1" Role="ToRole_CompartimentoToCompartimentoText"/>
@@ -56,6 +69,7 @@
             <EntityContainer Name="ZPC_COMPARTIMENTO_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="CompartimentoSet" EntityType="ZPC_COMPARTIMENTO_SRV.Compartimento" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="CompartimentoTextSet" EntityType="ZPC_COMPARTIMENTO_SRV.CompartimentoText" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="HLfa1VendorSet" EntityType="ZPC_COMPARTIMENTO_SRV.HLfa1Vendor" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <AssociationSet Name="CompartimentoToCompartimentoTextSet" Association="ZPC_COMPARTIMENTO_SRV.CompartimentoToCompartimentoText" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="CompartimentoSet" Role="FromRole_CompartimentoToCompartimentoText"/>
                     <End EntitySet="CompartimentoTextSet" Role="ToRole_CompartimentoToCompartimentoText"/>
