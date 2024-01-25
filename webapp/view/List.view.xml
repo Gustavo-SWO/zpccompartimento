@@ -1,5 +1,10 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" 
-    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:table="sap.ui.table" controllerName="zpccompartimento.controller.List" displayBlock="true">
+<mvc:View 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" 
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
+    xmlns:table="sap.ui.table" 
+    controllerName="zpccompartimento.controller.List" 
+    displayBlock="true">
     <Page id="idListPage" title="{i18n>title}">
         <content>
             <smartFilterBar:SmartFilterBar
@@ -14,6 +19,7 @@
                         index="1"
                         key="TuCarrier"
                         visibleInAdvancedArea="true"
+                        mandatory="mandatory"
                     />
                     <smartFilterBar:ControlConfiguration
                         id="idTuTypeControlConfiguration"
@@ -30,8 +36,8 @@
                 </smartFilterBar:controlConfiguration>
             </smartFilterBar:SmartFilterBar>
             <smartTable:SmartTable id="idSmartTable" width="100%" tableType="ResponsiveTable" enableAutoBinding="true" fitContainer="true" header="{i18n>title}" entitySet="CompartimentoSet" smartFilterId="idSmartFilterBar" 
-                requestAtLeastFields="TuNumber,TuType,TuCarrier" 
-                initiallyVisibleFields="TuNumber,TuType,TuCarrier"
+                requestAtLeastFields="TuNumber,TuType,TuCarrier,TuLength,TuWidth,TuHeight,TuUnlwgt,TuMaxwgt" 
+                initiallyVisibleFields="TuNumber,TuType,TuCarrier,TuLength,TuWidth,TuHeight,TuUnlwgt,TuMaxwgt"
                 ignoredFields=""
                 persistencyKey="TablePersistencyKey"
                 showFullScreenButton="true" 
