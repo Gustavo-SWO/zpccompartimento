@@ -54,7 +54,7 @@ sap.ui.define([
 							"zpccompartimento-display": {
 								"semanticObject": "zpccompartimento",
 								"action": "display",
-								"description": "Visualizar/Manter Compartimentos",
+								"description": "Criar/Visualizar Compartimentos",
 								"title": "Compartimentos",
 								"signature": {
 									"parameters": {}

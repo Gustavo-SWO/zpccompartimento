@@ -19,7 +19,7 @@
 
 ## zpc_compartimento
 
-Visualizar/Manter Compartimentos
+Criar/Visualizar Compartimentos
 
 ### Starting the generated app
 

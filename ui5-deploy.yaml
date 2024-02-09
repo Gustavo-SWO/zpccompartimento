@@ -18,7 +18,7 @@ builder:
           url: http://virtual.ds4.sap.paranaxisto.com.br:50000
         app:
           name: ZPC_COMPART
-          description: Visualizar/Manter Compartimentos
+          description: Criar/Visualizar Compartimentos
           package: Z001
           transport: DS4K902806
         exclude:
