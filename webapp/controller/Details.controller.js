@@ -44,12 +44,39 @@ sap.ui.define([
 
                 //     }
                 // });
-                var oContext = oModel.createEntry("/CompartimentoSet", {
-                    success: function (params) {
+                var oDataDefaultValues = {
+                    ChaDate: undefined,
+                    ChaName: undefined,
+                    CreDate: undefined,
+                    CreName: undefined,
+                    DimUom: "M",
+                    EquipNr: undefined,
+                    RailcarType: undefined,
+                    Tppoint: undefined,
+                    TuAxles: undefined,
+                    TuCarrier: undefined,
+                    TuHeight: undefined,
+                    TuId: undefined,
+                    TuLength: undefined,
+                    TuMaxvol: undefined,
+                    TuMaxwgt: undefined,
+                    TuNrcomps: undefined,
+                    TuNrmets: undefined,
+                    TuNumber: undefined,
+                    TuStatus: undefined,
+                    TuType: undefined,
+                    TuUnlwgt: undefined,
+                    TuWidth: undefined,
+                    VolUom: undefined,
+                    VtuXblck: undefined,
+                    WgtUom: "KG"
+                };
 
+                var oContext = oModel.createEntry("/CompartimentoSet", {
+                    properties: oDataDefaultValues,
+                    success: function (oData, response) {
                     },
                     error: function (params) {
-
                     }
                 });
 
