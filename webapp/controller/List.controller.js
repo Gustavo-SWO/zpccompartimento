@@ -7,8 +7,6 @@ sap.ui.define([
     function (Controller) {
         "use strict";
 
-        const cModeDisplay = "display";
-
         return Controller.extend("zpccompartimento.controller.List", {
             onInit: function () {
                 var oModel = this.getOwnerComponent().getModel();
