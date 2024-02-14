@@ -9,7 +9,7 @@
                 </Key>
                 <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:updatable="false"/>
                 <Property Name="TuType" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="TU type" sap:updatable="false" sap:value-list="standard"/>
-                <Property Name="WgtUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Weight UoM" sap:sortable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="unit-of-measure"/>
+                <Property Name="WgtUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Weight UoM" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="unit-of-measure"/>
                 <Property Name="TuId" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Placa" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuNrcomps" Type="Edm.Byte" sap:unicode="false" sap:label="Nr.compartments" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuNrmets" Type="Edm.Byte" sap:unicode="false" sap:label="Nr.of meters" sap:sortable="false" sap:filterable="false"/>
@@ -20,8 +20,8 @@
                 <Property Name="TuLength" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:unit="DimUom" sap:label="TU length" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuAxles" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="No.of axles" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuMaxvol" Type="Edm.Double" sap:unicode="false" sap:label="Maximum volume" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="VolUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Vol.UoM" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
-                <Property Name="DimUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Dim.UoM" sap:sortable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="unit-of-measure"/>
+                <Property Name="VolUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Vol.UoM" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="DimUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Dim.UoM" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="unit-of-measure"/>
                 <Property Name="EquipNr" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Equipment" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuStatus" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="TU status" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Tppoint" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="TransportPlanPt" sap:sortable="false" sap:filterable="false"/>
@@ -142,6 +142,9 @@
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="DimUom"/>
                                     <PropertyValue Property="ValueListProperty" String="Msehi"/>
                                 </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Txdim"/>
+                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -157,6 +160,9 @@
                                 <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="WgtUom"/>
                                     <PropertyValue Property="ValueListProperty" String="Msehi"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Txdim"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
