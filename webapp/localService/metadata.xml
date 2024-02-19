@@ -7,10 +7,10 @@
                 <Key>
                     <PropertyRef Name="TuNumber"/>
                 </Key>
-                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:updatable="false"/>
+                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
                 <Property Name="TuType" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="TU type" sap:updatable="false" sap:value-list="standard"/>
                 <Property Name="WgtUom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Weight UoM" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="unit-of-measure"/>
-                <Property Name="TuId" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Placa" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuId" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Placa" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuNrcomps" Type="Edm.Byte" sap:unicode="false" sap:label="Nr.compartments" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuNrmets" Type="Edm.Byte" sap:unicode="false" sap:label="Nr.of meters" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="TuUnlwgt" Type="Edm.Double" sap:unicode="false" sap:unit="WgtUom" sap:label="Unladen weight" sap:sortable="false" sap:filterable="false"/>
@@ -70,6 +70,14 @@
                 <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:filterable="false"/>
                 <Property Name="TuText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Tr. unit text" sap:filterable="false"/>
             </EntityType>
+            <EntityType Name="SH_Compartimento" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TuNumber"/>
+                </Key>
+                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
             <Association Name="CompartimentoToCompartimentoText" sap:content-version="1">
                 <End Type="ZPC_COMPARTIMENTO_SRV.Compartimento" Multiplicity="*" Role="FromRole_CompartimentoToCompartimentoText"/>
                 <End Type="ZPC_COMPARTIMENTO_SRV.CompartimentoText" Multiplicity="0..1" Role="ToRole_CompartimentoToCompartimentoText"/>
@@ -88,11 +96,31 @@
                 <EntitySet Name="ZshTuTypeSet" EntityType="ZPC_COMPARTIMENTO_SRV.ZshTuType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="HT006Set" EntityType="ZPC_COMPARTIMENTO_SRV.HT006" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="CompartimentoTextSet" EntityType="ZPC_COMPARTIMENTO_SRV.CompartimentoText" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="SH_CompartimentoSet" EntityType="ZPC_COMPARTIMENTO_SRV.SH_Compartimento" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <AssociationSet Name="CompartimentoToCompartimentoTextSet" Association="ZPC_COMPARTIMENTO_SRV.CompartimentoToCompartimentoText" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="CompartimentoSet" Role="FromRole_CompartimentoToCompartimentoText"/>
                     <End EntitySet="CompartimentoTextSet" Role="ToRole_CompartimentoToCompartimentoText"/>
                 </AssociationSet>
             </EntityContainer>
+            <Annotations Target="ZPC_COMPARTIMENTO_SRV.Compartimento/TuNumber" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="SH_CompartimentoSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="TuNumber"/>
+                                    <PropertyValue Property="ValueListProperty" String="TuNumber"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="TuText"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
             <Annotations Target="ZPC_COMPARTIMENTO_SRV.Compartimento/TuCarrier" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
                     <Record>

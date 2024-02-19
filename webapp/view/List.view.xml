@@ -1,59 +1,102 @@
-<mvc:View 
-    xmlns:mvc="sap.ui.core.mvc" 
-    xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" 
-    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
-    xmlns:table="sap.ui.table" 
-    controllerName="zpccompartimento.controller.List" 
-    displayBlock="true">
-    <Page id="idListPage" title="{i18n>title}">
-        <content>
-            <smartFilterBar:SmartFilterBar
-                id="idSmartFilterBar"
-                entitySet="CompartimentoSet"
-                showClearOnFB="true"
-                showFilterConfiguration="false"
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:table="sap.ui.table"
+    controllerName="zpccompartimento.controller.List"
+    displayBlock="true"
+>
+    <f:DynamicPage
+        id="idListPage"
+        fitContent="true"
+    >
+        <f:title>
+            <f:DynamicPageTitle id="idDynamicPageTitle">
+                <f:heading>
+                    <Title id="idCompartimentosHdrTitle" text="{i18n>title}" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader
+                id="dynamicalPageHeader"
+                pinnable="true"
             >
-                <smartFilterBar:controlConfiguration>
-                    <smartFilterBar:ControlConfiguration
-                        id="idTuCarrierControlConfiguration"
-                        index="1"
-                        key="TuCarrier"
-                        visibleInAdvancedArea="true"
-                        mandatory="mandatory"
-                    />
-                    <smartFilterBar:ControlConfiguration
-                        id="idTuTypeControlConfiguration"
-                        index="2"
-                        key="TuType"
-                        visibleInAdvancedArea="true"
-                    />
-                    <smartFilterBar:ControlConfiguration
-                        id="idTuNumberControlConfiguration"
-                        index="3"
-                        key="TuNumber"
-                        visibleInAdvancedArea="true"
-                    />
-                </smartFilterBar:controlConfiguration>
-            </smartFilterBar:SmartFilterBar>
-            <smartTable:SmartTable id="idSmartTable" width="100%" tableType="ResponsiveTable" enableAutoBinding="true" fitContainer="true" header="{i18n>title}" entitySet="CompartimentoSet" smartFilterId="idSmartFilterBar" 
-                requestAtLeastFields="TuNumber,TuType,TuCarrier,TuLength,TuWidth,TuHeight,TuUnlwgt,TuMaxwgt" 
+                <f:content>
+                    <smartFilterBar:SmartFilterBar
+                        id="idSmartFilterBar"
+                        entitySet="CompartimentoSet"
+                        showClearOnFB="true"
+                        showFilterConfiguration="false"
+                        useToolbar="false"
+                    >
+                        <smartFilterBar:controlConfiguration>
+                            <smartFilterBar:ControlConfiguration
+                                id="idTuCarrierControlConfiguration"
+                                index="1"
+                                key="TuCarrier"
+                                visibleInAdvancedArea="true"
+                                mandatory="mandatory"
+                            />
+                            <smartFilterBar:ControlConfiguration
+                                id="idTuTypeControlConfiguration"
+                                index="2"
+                                key="TuType"
+                                visibleInAdvancedArea="true"
+                            />
+                            <smartFilterBar:ControlConfiguration
+                                id="idTuNumberControlConfiguration"
+                                index="3"
+                                key="TuNumber"
+                                visibleInAdvancedArea="true"
+                            />
+                        </smartFilterBar:controlConfiguration>
+                    </smartFilterBar:SmartFilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <smartTable:SmartTable
+                id="idSmartTable"
+                width="100%"
+                tableType="ResponsiveTable"
+                enableAutoBinding="true"
+                fitContainer="true"
+                header="{i18n>title}"
+                entitySet="CompartimentoSet"
+                smartFilterId="idSmartFilterBar"
+                requestAtLeastFields="TuNumber,TuType,TuCarrier,TuLength,TuWidth,TuHeight,TuUnlwgt,TuMaxwgt"
                 initiallyVisibleFields="TuNumber,TuType,TuCarrier,TuLength,TuWidth,TuHeight,TuUnlwgt,TuMaxwgt"
                 ignoredFields=""
                 persistencyKey="TablePersistencyKey"
-                showFullScreenButton="true" 
+                showFullScreenButton="true"
+            >
+                <table:Table
+                    id="idTable"
+                    rowActionCount="1"
+                    selectionMode="Single"
                 >
-                <table:Table id="idTable" rowActionCount="1" selectionMode="Single">
                     <table:rowActionTemplate>
                         <table:RowAction id="idRowAction">
                             <table:items>
-                                <table:RowActionItem id="idRowActionItem" type="Navigation" press="onRowActionItemPress" icon="sap-icon://feeder-arrow"/>
+                                <table:RowActionItem
+                                    id="idRowActionItem"
+                                    type="Navigation"
+                                    press="onRowActionItemPress"
+                                    icon="sap-icon://feeder-arrow"
+                                />
                             </table:items>
                         </table:RowAction>
                     </table:rowActionTemplate>
                 </table:Table>
                 <smartTable:customToolbar>
-                    <OverflowToolbar id="idOverflowToolbar" design="Transparent">
-                        <ToolbarSpacer id="id1ToolbarSpacer"/>
+                    <OverflowToolbar
+                        id="idOverflowToolbar"
+                        design="Transparent"
+                    >
+                        <ToolbarSpacer id="id1ToolbarSpacer" />
                         <!-- <Button ="Criar Registro" type="Transparent" press="onNewRegister" icon="sap-icon://document"/> -->
                         <Button
                             id="idCriarCompartimentoButton"
@@ -79,7 +122,6 @@
                         growFactor="1"
                     />
                 </smartTable:layoutData>
-                
                 <!-- <table:AnalyticalTable id="teste" editable="false" rowActionCount="1" selectionMode="Single" 
                 visibleRowCount="16">
                     <table:rowActionTemplate>
@@ -91,6 +133,6 @@
                     </table:rowActionTemplate>
                 </table:AnalyticalTable> -->
             </smartTable:SmartTable>
-        </content>
-    </Page>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>

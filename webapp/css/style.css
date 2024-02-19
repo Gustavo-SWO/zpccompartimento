@@ -1,1 +1,4 @@
 /* Enter your custom styles here */
+.sapUiCompSmartField.zUppercaseText .sapMInput .sapMInputBaseInner {
+    text-transform: uppercase;
+}
