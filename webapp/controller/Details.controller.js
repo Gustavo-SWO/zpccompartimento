@@ -29,7 +29,7 @@ sap.ui.define([
 
             if (this._key) {
                 this._modeCreate = false;
-                this.getView().byId("idTuNumberGroupElement").setVisible(false);
+                // this.getView().byId("idTuNumberGroupElement").setVisible(false);
                 this._loadData(this._key);
             } else {
                 this._modeCreate = true;
@@ -157,7 +157,7 @@ sap.ui.define([
 
             if (this._modeCreate && !oSmartForm.getEditable()) {
                 //Create mode
-                this.getView().byId("idTuNumberGroupElement").setVisible(true);
+                // this.getView().byId("idTuNumberGroupElement").setVisible(true);
                 oSmartForm._toggleEditMode();
                 oSmartForm.setEditTogglable(false);
             }
