@@ -74,9 +74,10 @@
                 <Key>
                     <PropertyRef Name="TuNumber"/>
                 </Key>
-                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
                 <Property Name="TuText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuCarrier" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
             </EntityType>
             <Association Name="CompartimentoToCompartimentoText" sap:content-version="1">
                 <End Type="ZPC_COMPARTIMENTO_SRV.Compartimento" Multiplicity="*" Role="FromRole_CompartimentoToCompartimentoText"/>
@@ -115,6 +116,10 @@
                                 </Record>
                                 <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="TuText"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="TuCarrier"/>
+                                    <PropertyValue Property="ValueListProperty" String="TuCarrier"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
