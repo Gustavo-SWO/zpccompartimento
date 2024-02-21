@@ -11,29 +11,75 @@ sap.ui.define([
 ) {
     "use strict";
 
+    const cModeInsert = "I";
+    const cModeUpdate = "U";
+    const cModeDisplay = "V";
+
     return Controller.extend("zpccompartimento.controller.Details", {
         _key: "",
-        _modeCreate: false,
+        _mode: cModeDisplay,
+        _templateItemCompartimento: {
+            TuNumber: null,
+            ComNumber: 0,
+            CmpMinvol: null,
+            CmpMaxvol: null,
+            mode: cModeInsert
+        },
         onInit: function () {
-            sap.ui.core.UIComponent.getRouterFor(this).getRoute("details").attachPatternMatched(this.onRouteMatched, this);
+            sap.ui.core.UIComponent.getRouterFor(this).getRoute("details").attachPatternMatched(this._onRouteMatched, this);
 
             var oModel = this.getOwnerComponent().getModel();
             oModel.setDefaultBindingMode("TwoWay");
 
             this.getView().setModel(oModel);
+
+            this.getView().setModel(new sap.ui.model.json.JSONModel({
+                key: this._key,
+                mode: this._mode
+            }, true), "viewData");
+
+            this.getView().setModel(new sap.ui.model.json.JSONModel([]), "tableItemComp");
         },
-        onRouteMatched: function (oEvent) {
+        _setKey: function (sKey) {
+            this._key = sKey;
+            let oModel = this.getView().getModel("viewData");
+            oModel.setProperty("/key", this._mode);
+        },
+        _setMode: function (sMode) {
+            this._mode = sMode;
+            let oModel = this.getView().getModel("viewData");
+            oModel.setProperty("/mode", this._mode);
+
+            if (this._mode === cModeUpdate) {
+                let oModelItemComp = this.getView().getModel("tableItemComp");
+                let aDataItemCompartimento = oModelItemComp.getData();
+
+                for (let i = 0; i < aDataItemCompartimento.length; i++) {
+                    let element = { ...aDataItemCompartimento[i] };
+
+                    if (element.mode === cModeDisplay) {
+                        element.mode = cModeUpdate;
+                    }
+                }
+
+                oModelItemComp.setData(aDataItemCompartimento);
+            }
+
+        },
+        _setTableItemCompVisible: function (bVisible) {
+            this.getView().byId("idItemCompTable").setVisible(bVisible);
+        },
+        _onRouteMatched: function (oEvent) {
             var args = oEvent.getParameter("arguments");
 
-            this._key = args["TuNumber"];
+            this._setKey(args["TuNumber"]);
 
             if (this._key) {
-                this._modeCreate = false;
+                this._setMode(cModeDisplay);
                 // this.getView().byId("idTuNumberGroupElement").setVisible(false);
                 this._loadData(this._key);
             } else {
-                this._modeCreate = true;
-                this._switchFormCreate();
+                this._setMode(cModeInsert);
                 var oModel = this.getView().getModel();
                 // oModel.attachMetadataLoaded(function () {
                 // var oContextChild = oModel.createEntry("/CompartimentoTextSet", {
@@ -84,21 +130,31 @@ sap.ui.define([
 
                 this.getView().byId("idSmartForm").bindElement(oContext.getPath());
 
+                let oModelAtribTU = this.getView().getModel("tableAtribTUData");
+
+                if (oModelAtribTU) {
+                    oModelAtribTU.setData([]);
+                }
                 // });
             }
+
+            this._setSmartForm();
         },
         onSmartFormEditToggled: function () {
             var oElement = this.byId("idGravarButton");
 
             if (oElement.getVisible()) {
+                this._setMode(cModeDisplay);
                 oElement.setVisible(false);
                 this.getView().byId("idSmartForm").setTitle("Exibir unid. Transporte " + this._key);
             } else {
                 oElement.setVisible(true);
 
                 if (!this._key) {
+                    this._setMode(cModeInsert);
                     this.getView().byId("idSmartForm").setTitle("Criar unid. Transporte");
                 } else {
+                    this._setMode(cModeUpdate);
                     this.getView().byId("idSmartForm").setTitle("Modif. unid. Transporte " + this._key);
                 }
             }
@@ -112,6 +168,23 @@ sap.ui.define([
             } else {
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("RouteList", {}, true);
+            }
+        },
+        onButtonAddRowPress: function (oEvent) {
+            let oModel = this.getView().getModel("tableItemComp");
+            let aData = oModel.getData();
+            aData.push({ ...this._templateItemCompartimento });
+            oModel.setData(aData);
+        },
+        onChangeModelValueTuType: function (oEvent) {
+            if (oEvent.getParameter("valueChanged") === true) {
+                let sTuType = oEvent.getSource().getBindingContext().getProperty("TuType");
+
+                if (sTuType === 'RD02') {
+                    this._setTableItemCompVisible(true);
+                } else {
+                    this._setTableItemCompVisible(false);
+                }
             }
         },
         _loadData: function (tuNumber) {
@@ -128,11 +201,28 @@ sap.ui.define([
             try {
                 oDataModel.read("/CompartimentoSet('" + tuNumber + "')", {
                     urlParameters: {
-                        "$expand": "CompartimentoText"
+                        "$expand": "CompartimentoText,ItemCompartimento"
                     },
                     filters: [],
                     success: function (oData, response) {
                         that.getView().byId("idSmartForm").bindElement("/CompartimentoSet('" + tuNumber + "')");
+
+                        if (oData.TuType === 'RD02') {
+                            let oModelItemCompartimento = that.getView().getModel("tableItemComp");
+
+                            let aResults = oData.ItemCompartimento.results;
+
+                            for (let i = 0; i < aResults.length; i++) {
+                                delete aResults[i].__metadata;
+                                aResults[i]["mode"] = cModeDisplay;
+                            }
+
+                            oModelItemCompartimento.setData(aResults);
+
+                            that._setTableItemCompVisible(true);
+                        } else {
+                            that._setTableItemCompVisible(false);
+                        }
                     },
                     error: function (e) {
                         if (e.responseText) {
@@ -146,20 +236,24 @@ sap.ui.define([
             }
         },
         onGravarButtonPress: function (oEvent) {
-            if (this._modeCreate) {
+            if (this._mode === cModeInsert) {
                 this._saveCreate();
             } else {
                 this._saveUpdate();
             }
         },
-        _switchFormCreate: function () {
+        _setSmartForm: function () {
             var oSmartForm = this.getView().byId("idSmartForm");
 
-            if (this._modeCreate && !oSmartForm.getEditable()) {
+            if (this._mode === cModeInsert && !oSmartForm.getEditable()) {
                 //Create mode
                 // this.getView().byId("idTuNumberGroupElement").setVisible(true);
                 oSmartForm._toggleEditMode();
                 oSmartForm.setEditTogglable(false);
+            } else if (this._mode === cModeDisplay && oSmartForm.getEditable()) {
+                //Display mode
+                oSmartForm.setEditTogglable(true)
+                oSmartForm._toggleEditMode();;
             }
         },
         _saveCreate: function () {
@@ -167,8 +261,24 @@ sap.ui.define([
             var oDataModel = this.getOwnerComponent().getModel();
             var sEntityPath = this.getView().byId("idSmartForm").getBindingContext().getPath();
             var oData = oDataModel.getData(sEntityPath);
+
             let oSendData = { ...oData };
             oSendData.CompartimentoText = { ...oDataModel.getData(sEntityPath + "/CompartimentoText") };
+
+            let aDataItemCompartimento = this.getView().getModel("tableItemComp").getData();
+            oSendData.ItemCompartimento = [];
+
+            if (oData.TuType === 'RD02') {
+                for (let i = 0; i < aDataItemCompartimento.length; i++) {
+                    let element = { ...aDataItemCompartimento[i] };
+
+                    if (element.mode === cModeInsert) {
+                        delete element.mode;
+                        element.TuNumber = this._key;
+                        oSendData.ItemCompartimento.push({ ...element });
+                    }
+                }
+            }
 
             try {
                 // oDataModel.submitChanges({
@@ -197,6 +307,24 @@ sap.ui.define([
 
             let oSendData = { ...oData };
             oSendData.CompartimentoText = { ...oDataModel.getData(sEntityPath + "/CompartimentoText") };
+
+            let aDataItemCompartimento = this.getView().getModel("tableItemComp").getData();
+            oSendData.ItemCompartimento = [];
+
+            if (oData.TuType === 'RD02') {
+                for (let i = 0; i < aDataItemCompartimento.length; i++) {
+                    let element = { ...aDataItemCompartimento[i] };
+
+                    if (element.mode === cModeInsert) {
+                        delete element.mode;
+                        element.TuNumber = this._key;
+                        oSendData.ItemCompartimento.push({ ...element });
+                    } else if (element.mode === cModeUpdate) {
+                        delete element.mode;
+                        oSendData.ItemCompartimento.push({ ...element });
+                    }
+                }
+            }
 
             try {
                 oDataModel.create("/CompartimentoSet", oSendData, {

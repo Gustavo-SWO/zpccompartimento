@@ -1,93 +1,282 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" controllerName="zpccompartimento.controller.Details" displayBlock="true">
-    <Page id="idDetailsPage" title="{i18n>titleDetails}" contentOnlyBusy="true">
-    <content>
-        <smartForm:SmartForm id="idSmartForm" editTogglable="true" validationMode="Async" editToggled="onSmartFormEditToggled">
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    controllerName="zpccompartimento.controller.Details"
+    displayBlock="true"
+>
+    <Page
+        id="idDetailsPage"
+        title="{i18n>titleDetails}"
+        contentOnlyBusy="true"
+    >
+        <content>
+            <VBox
+                id="idVBox"
+                class="sapUiSmallMargin"
+            >
+                <smartForm:SmartForm
+                    id="idSmartForm"
+                    editTogglable="true"
+                    validationMode="Async"
+                    editToggled="onSmartFormEditToggled"
+                >
                     <smartForm:customToolbar>
-                        <Toolbar id="idToolbar" width="100%" height="100%">
-                            <ToolbarSpacer id="id1ToolbarSpacer"/>
-                            <Button id="idGravarButton" type="Emphasized" text="{i18n>saveBtn}" icon="sap-icon://save" press="onGravarButtonPress" visible="false"/>
+                        <Toolbar
+                            id="idToolbar"
+                            width="100%"
+                            height="100%"
+                        >
+                            <ToolbarSpacer id="id1ToolbarSpacer" />
+                            <Button
+                                id="idGravarButton"
+                                type="Emphasized"
+                                text="{i18n>saveBtn}"
+                                icon="sap-icon://save"
+                                press="onGravarButtonPress"
+                                visible="false"
+                            />
                         </Toolbar>
                     </smartForm:customToolbar>
-                <smartForm:groups>
-                    <smartForm:Group title="{i18n>titleGeneralDataGroup}" id="idGenDataGroup">
-                        <smartForm:groupElements>
-                            <smartForm:GroupElement id="idTuNumberGroupElement" visible="false">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuNumberSmartField" value="{TuNumber}" entitySet="CompartimentoSet"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                            <smartForm:GroupElement id="idTuIdGroupElement">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuIdSmartField" value="{TuId}" entitySet="CompartimentoSet" class="zUppercaseText"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                            <smartForm:GroupElement id="idTuTypeGroupElement">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuTypeSmartField" value="{TuType}" entitySet="CompartimentoSet"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                            <smartForm:GroupElement id="idTuTextGroupElement">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuTextSmartField" value="{CompartimentoText/TuText}" entitySet="CompartimentoSet"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                        </smartForm:groupElements>
-                    </smartForm:Group>
-                    <smartForm:Group title="{i18n>titleTUAttributes}" id="idTUAttributesGroup">
-                        <smartForm:groupElements>
-                            <smartForm:GroupElement id="idTuLengthGroupElement">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuLengthSmartField" value="{TuLength}" entitySet="CompartimentoSet"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                            <smartForm:GroupElement id="idTuWidthGroupElement">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuWidthSmartField" value="{TuWidth}" entitySet="CompartimentoSet"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                            <smartForm:GroupElement id="idTuHeightGroupElement">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuHeightSmartField" value="{TuHeight}" entitySet="CompartimentoSet"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                            <!-- <smartForm:GroupElement id="idDimUomGroupElement">
+                    <smartForm:groups>
+                        <smartForm:Group
+                            title="{i18n>titleGeneralDataGroup}"
+                            id="idGenDataGroup"
+                        >
+                            <smartForm:groupElements>
+                                <smartForm:GroupElement
+                                    id="idTuNumberGroupElement"
+                                    visible="false"
+                                >
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuNumberSmartField"
+                                            value="{TuNumber}"
+                                            entitySet="CompartimentoSet"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="idTuIdGroupElement">
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuIdSmartField"
+                                            value="{TuId}"
+                                            entitySet="CompartimentoSet"
+                                            class="zUppercaseText"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="idTuTypeGroupElement">
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuTypeSmartField"
+                                            value="{TuType}"
+                                            entitySet="CompartimentoSet"
+                                            changeModelValue="onChangeModelValueTuType"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="idTuTextGroupElement">
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuTextSmartField"
+                                            value="{CompartimentoText/TuText}"
+                                            entitySet="CompartimentoSet"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                            </smartForm:groupElements>
+                        </smartForm:Group>
+                        <smartForm:Group
+                            title="{i18n>titleTUAttributes}"
+                            id="idTUAttributesGroup"
+                        >
+                            <smartForm:groupElements>
+                                <smartForm:GroupElement id="idTuLengthGroupElement">
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuLengthSmartField"
+                                            value="{TuLength}"
+                                            entitySet="CompartimentoSet"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="idTuWidthGroupElement">
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuWidthSmartField"
+                                            value="{TuWidth}"
+                                            entitySet="CompartimentoSet"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="idTuHeightGroupElement">
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuHeightSmartField"
+                                            value="{TuHeight}"
+                                            entitySet="CompartimentoSet"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                                <!-- <smartForm:GroupElement id="idDimUomGroupElement">
                                 <smartForm:elements>
                                     <smartField:SmartField id="idDimUomSmartField" value="{DimUom}" entitySet="CompartimentoSet"/>
                                 </smartForm:elements>
                             </smartForm:GroupElement> -->
-                            <smartForm:GroupElement id="idTuUnlwgtGroupElement">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuUnlwgtSmartField" value="{TuUnlwgt}" entitySet="CompartimentoSet"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                            <smartForm:GroupElement id="idTuMaxwgtGroupElement">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuMaxwgtSmartField" value="{TuMaxwgt}" entitySet="CompartimentoSet"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                            <!-- <smartForm:GroupElement id="idWgtUomGroupElement">
+                                <smartForm:GroupElement id="idTuUnlwgtGroupElement">
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuUnlwgtSmartField"
+                                            value="{TuUnlwgt}"
+                                            entitySet="CompartimentoSet"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="idTuMaxwgtGroupElement">
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuMaxwgtSmartField"
+                                            value="{TuMaxwgt}"
+                                            entitySet="CompartimentoSet"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                                <!-- <smartForm:GroupElement id="idWgtUomGroupElement">
                                 <smartForm:elements>
                                     <smartField:SmartField id="idWgtUomSmartField" value="{WgtUom}" entitySet="CompartimentoSet"/>
                                 </smartForm:elements>
                             </smartForm:GroupElement> -->
-                        </smartForm:groupElements>
-                    </smartForm:Group>
-                    <smartForm:Group title="{i18n>titleInfoGroup}" id="idInfoGroup">
-                        <smartForm:groupElements>
-                            <smartForm:GroupElement id="idTuAxlesGroupElement">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuAxlesSmartField" value="{TuAxles}" entitySet="CompartimentoSet"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                            <smartForm:GroupElement id="idTuCarrierGroupElement">
-                                <smartForm:elements>
-                                    <smartField:SmartField id="idTuCarrierSmartField" value="{TuCarrier}" entitySet="CompartimentoSet"/>
-                                </smartForm:elements>
-                            </smartForm:GroupElement>
-                        </smartForm:groupElements>
-                    </smartForm:Group>
-                </smartForm:groups>
-            </smartForm:SmartForm>
-    </content>
-</Page>
+                            </smartForm:groupElements>
+                        </smartForm:Group>
+                        <smartForm:Group
+                            title="{i18n>titleInfoGroup}"
+                            id="idInfoGroup"
+                        >
+                            <smartForm:groupElements>
+                                <smartForm:GroupElement id="idTuAxlesGroupElement">
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuAxlesSmartField"
+                                            value="{TuAxles}"
+                                            entitySet="CompartimentoSet"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="idTuCarrierGroupElement">
+                                    <smartForm:elements>
+                                        <smartField:SmartField
+                                            id="idTuCarrierSmartField"
+                                            value="{TuCarrier}"
+                                            entitySet="CompartimentoSet"
+                                        />
+                                    </smartForm:elements>
+                                </smartForm:GroupElement>
+                            </smartForm:groupElements>
+                        </smartForm:Group>
+                    </smartForm:groups>
+                </smartForm:SmartForm>
+                <Table
+                    id="idItemCompTable"
+                    items="{tableItemComp>/}"
+                    busyIndicatorDelay="200"
+                    autoPopinMode="true"
+                    visible="false"
+                >
+                    <headerToolbar>
+                        <OverflowToolbar id="idTableOverflowToolbar">
+                            <Title
+                                id="idUnidadesDeTransporteTitle"
+                                text="{i18n>title}"
+                                level="H2"
+                            />
+                            <ToolbarSpacer id="id2ToolbarSpacer" />
+                            <Button
+                                id="idAddButton"
+                                icon="sap-icon://add"
+                                press="onButtonAddRowPress"
+                                visible="{= (${viewData>/mode} === 'I' || ${viewData>/mode} === 'U') }"
+                            />
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column
+                            id="idCmpMinvolColumn"
+                            hAlign="Center"
+                            importance="High"
+                            width="7em"
+                        >
+                            <Text
+                                id="idCmpMinvolText"
+                                text="{i18n>txtCmpMinvol}"
+                            />
+                        </Column>
+                        <Column
+                            id="idCmpMaxvolColumn"
+                            hAlign="Center"
+                            importance="High"
+                            width="7em"
+                        >
+                            <Text
+                                id="idCmpMaxvolText"
+                                text="{i18n>txtCmpMaxvol}"
+                            />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem
+                            id="idColumnListItem"
+                            vAlign="Middle"
+                        >
+                            <cells>
+                                <HBox
+                                    id="id1HBox"
+                                    alignItems="Center"
+                                    alignContent="Center"
+                                    justifyContent="Center"
+                                >
+                                    <Input
+                                        id="idCmpMinvolInput"
+                                        value="{tableItemComp>CmpMinvol}"
+                                        valueLiveUpdate="true"
+                                        editable="{= ${tableItemComp>mode} === 'I' || ${tableItemComp>mode} === 'U' }"
+                                        maxLength="10"
+                                        visible="{= ${tableItemComp>mode} === 'I' || ${tableItemComp>mode} === 'U' }"
+                                        required="true"
+                                    />
+                                    <ObjectIdentifier
+                                        id="idCmpMinvolObjectIdentifier"
+                                        text="{tableItemComp>CmpMinvol}"
+                                        visible="{= ${tableItemComp>mode} === 'V' }"
+                                    />
+                                </HBox>
+                                <HBox
+                                    id="id2HBox"
+                                    alignItems="Center"
+                                    alignContent="Center"
+                                    justifyContent="Center"
+                                >
+                                    <Input
+                                        id="idCmpMaxvolInput"
+                                        value="{tableItemComp>CmpMaxvol}"
+                                        valueLiveUpdate="true"
+                                        editable="{= ${tableItemComp>mode} === 'I' || ${tableItemComp>mode} === 'U'}"
+                                        maxLength="10"
+                                        visible="{= ${tableItemComp>mode} === 'I' || ${tableItemComp>mode} === 'U' }"
+                                        required="true"
+                                    />
+                                    <ObjectIdentifier
+                                        id="idCmpMaxvolObjectIdentifier"
+                                        text="{tableItemComp>CmpMaxvol}"
+                                        visible="{= ${tableItemComp>mode} === 'V' }"
+                                    />
+                                </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
 </mvc:View>

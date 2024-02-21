@@ -33,6 +33,7 @@
                 <Property Name="VtuXblck" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="PurposeComplete Flag" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="RailcarType" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Own Vehicle" sap:sortable="false" sap:filterable="false"/>
                 <NavigationProperty Name="CompartimentoText" Relationship="ZPC_COMPARTIMENTO_SRV.CompartimentoToCompartimentoText" FromRole="FromRole_CompartimentoToCompartimentoText" ToRole="ToRole_CompartimentoToCompartimentoText"/>
+                <NavigationProperty Name="ItemCompartimento" Relationship="ZPC_COMPARTIMENTO_SRV.CompartimentoToItemCompartimento" FromRole="FromRole_CompartimentoToItemCompartimento" ToRole="ToRole_CompartimentoToItemCompartimento"/>
             </EntityType>
             <EntityType Name="HLfa1Vendor" sap:value-list="true" sap:content-version="1">
                 <Key>
@@ -74,11 +75,33 @@
                 <Key>
                     <PropertyRef Name="TuNumber"/>
                 </Key>
-                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
-                <Property Name="TuText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TuCarrier" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="TuText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Tr. unit text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TuCarrier" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Carrier" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
             </EntityType>
+            <EntityType Name="ItemCompartimento" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TuNumber"/>
+                    <PropertyRef Name="ComNumber"/>
+                </Key>
+                <Property Name="TuNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Transport unit" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ComNumber" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Compartment no." sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CmpMinvol" Type="Edm.Double" sap:unicode="false" sap:label="Minimum volume" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CmpMaxvol" Type="Edm.Double" sap:unicode="false" sap:label="Maximum volume" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="CompartimentoToItemCompartimento" sap:content-version="1">
+                <End Type="ZPC_COMPARTIMENTO_SRV.Compartimento" Multiplicity="0..1" Role="FromRole_CompartimentoToItemCompartimento"/>
+                <End Type="ZPC_COMPARTIMENTO_SRV.ItemCompartimento" Multiplicity="*" Role="ToRole_CompartimentoToItemCompartimento"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CompartimentoToItemCompartimento">
+                        <PropertyRef Name="TuNumber"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CompartimentoToItemCompartimento">
+                        <PropertyRef Name="TuNumber"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
             <Association Name="CompartimentoToCompartimentoText" sap:content-version="1">
                 <End Type="ZPC_COMPARTIMENTO_SRV.Compartimento" Multiplicity="*" Role="FromRole_CompartimentoToCompartimentoText"/>
                 <End Type="ZPC_COMPARTIMENTO_SRV.CompartimentoText" Multiplicity="0..1" Role="ToRole_CompartimentoToCompartimentoText"/>
@@ -98,6 +121,11 @@
                 <EntitySet Name="HT006Set" EntityType="ZPC_COMPARTIMENTO_SRV.HT006" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="CompartimentoTextSet" EntityType="ZPC_COMPARTIMENTO_SRV.CompartimentoText" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="SH_CompartimentoSet" EntityType="ZPC_COMPARTIMENTO_SRV.SH_Compartimento" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ItemCompartimentoSet" EntityType="ZPC_COMPARTIMENTO_SRV.ItemCompartimento" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="CompartimentoToItemCompartimentoSet" Association="ZPC_COMPARTIMENTO_SRV.CompartimentoToItemCompartimento" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CompartimentoSet" Role="FromRole_CompartimentoToItemCompartimento"/>
+                    <End EntitySet="ItemCompartimentoSet" Role="ToRole_CompartimentoToItemCompartimento"/>
+                </AssociationSet>
                 <AssociationSet Name="CompartimentoToCompartimentoTextSet" Association="ZPC_COMPARTIMENTO_SRV.CompartimentoToCompartimentoText" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="CompartimentoSet" Role="FromRole_CompartimentoToCompartimentoText"/>
                     <End EntitySet="CompartimentoTextSet" Role="ToRole_CompartimentoToCompartimentoText"/>
