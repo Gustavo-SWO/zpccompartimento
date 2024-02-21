@@ -331,8 +331,9 @@ sap.ui.define([
                     success: function (oData, response) {
                         MessageBox.success("Dados gravados com sucesso!", {
                             onClose: function () {
-                                var oSmartForm = that.getView().byId("idSmartForm");
-                                oSmartForm._toggleEditMode();
+                                // var oSmartForm = that.getView().byId("idSmartForm");
+                                // oSmartForm._toggleEditMode();
+                                window.location.reload();
                             }
                         });
                     },

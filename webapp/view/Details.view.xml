@@ -239,6 +239,7 @@
                                     <Input
                                         id="idCmpMinvolInput"
                                         value="{tableItemComp>CmpMinvol}"
+                                        type="Number"
                                         valueLiveUpdate="true"
                                         editable="{= ${tableItemComp>mode} === 'I' || ${tableItemComp>mode} === 'U' }"
                                         maxLength="10"
@@ -247,7 +248,14 @@
                                     />
                                     <ObjectIdentifier
                                         id="idCmpMinvolObjectIdentifier"
-                                        text="{tableItemComp>CmpMinvol}"
+                                        text="{
+                                            path: 'tableItemComp>CmpMinvol',
+                                            type: 'sap.ui.model.odata.type.Decimal',
+                                            formatOptions: {
+                                                minFractionDigits: 2,
+                                                maxFractionDigits: 3
+                                            }
+                                        }"
                                         visible="{= ${tableItemComp>mode} === 'V' }"
                                     />
                                 </HBox>
@@ -260,6 +268,7 @@
                                     <Input
                                         id="idCmpMaxvolInput"
                                         value="{tableItemComp>CmpMaxvol}"
+                                        type="Number"
                                         valueLiveUpdate="true"
                                         editable="{= ${tableItemComp>mode} === 'I' || ${tableItemComp>mode} === 'U'}"
                                         maxLength="10"
@@ -268,7 +277,14 @@
                                     />
                                     <ObjectIdentifier
                                         id="idCmpMaxvolObjectIdentifier"
-                                        text="{tableItemComp>CmpMaxvol}"
+                                        text="{
+                                            path: 'tableItemComp>CmpMaxvol',
+                                            type: 'sap.ui.model.odata.type.Decimal',
+                                            formatOptions: {
+                                                minFractionDigits: 2,
+                                                maxFractionDigits: 3
+                                            }
+                                        }"
                                         visible="{= ${tableItemComp>mode} === 'V' }"
                                     />
                                 </HBox>
