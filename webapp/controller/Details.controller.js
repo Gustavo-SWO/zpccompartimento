@@ -138,9 +138,8 @@ sap.ui.define([
 
                 this._setTableItemCompVisible(false);
                 // });
+                this._setSmartForm();
             }
-
-            this._setSmartForm();
         },
         onSmartFormEditToggled: function () {
             var oElement = this.byId("idGravarButton");
@@ -225,6 +224,8 @@ sap.ui.define([
                         } else {
                             that._setTableItemCompVisible(false);
                         }
+
+                        that._setSmartForm();
                     },
                     error: function (e) {
                         if (e.responseText) {
