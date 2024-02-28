@@ -130,11 +130,13 @@ sap.ui.define([
 
                 this.getView().byId("idSmartForm").bindElement(oContext.getPath());
 
-                let oModelAtribTU = this.getView().getModel("tableAtribTUData");
+                let oModelItemComp= this.getView().getModel("tableItemComp");
 
-                if (oModelAtribTU) {
-                    oModelAtribTU.setData([]);
+                if (oModelItemComp) {
+                    oModelItemComp.setData([]);
                 }
+
+                this._setTableItemCompVisible(false);
                 // });
             }
 
